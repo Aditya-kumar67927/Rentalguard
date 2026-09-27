@@ -1,0 +1,20 @@
+{
+  "documents": 9139,
+  "threshold": 0.9,
+  "bruteforce": {
+    "comparisons": 41756091,
+    "seconds": 9.91,
+    "pairs_found": 5224
+  },
+  "lsh": {
+    "num_perm": 128,
+    "bands": 32,
+    "rows_per_band": 4,
+    "candidate_pairs_scored": 959164,
+    "seconds": 7.02,
+    "pairs_found": 5224,
+    "recall_vs_bruteforce": 1.0,
+    "comparison_reduction": 0.977
+  },
+  "note": "LSH signatures are pre-computed at index-build time (scripts/create_features.py); the LSH timing covers candidate generation + exact scoring only."
+}

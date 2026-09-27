@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Analyze a listing{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head">
+    <h1>Analyze a listing</h1>
+    <p>Enter the details exactly as they appear in the advert. The analysis is saved to your history.</p>
+  </div>
+
+  <div class="card">
+    <div class="row-between">
+      <h2 class="small muted">Try a demo listing (synthetic examples)</h2>
+      <div class="examples" id="examples">
+        <button type="button" class="btn btn-secondary btn-sm" data-example="normal">Normal listing</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-example="price">Suspicious price</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-example="payment">Payment request</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-example="urgency">Urgency</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-example="duplicate">Duplicate text</button>
+      </div>
+    </div>
+  </div>
+
+  <form id="analyze-form" class="card stack section-gap" novalidate>
+    <div class="form-alert hidden" role="alert" data-form-alert></div>
+    <div class="form-grid">
+      <div class="field span-all">
+        <label for="locality">Property location (locality)</label>
+        <input id="locality" name="locality" list="locality-options" autocomplete="off" placeholder="e.g. Andheri West, Powai, Kharghar" required maxlength="120">
+        <datalist id="locality-options"></datalist>
+        <span class="hint" id="locality-hint">Start typing to see matching Mumbai localities from the reference data.</span>
+        <span class="error" data-error-for="locality"></span>
+      </div>
+      <div class="field">
+        <label for="rent">Monthly rent</label>
+        <div class="input-prefix"><span>₹</span><input id="rent" name="rent" inputmode="numeric" placeholder="35,000" required></div>
+        <span class="error" data-error-for="rent"></span>
+      </div>
+      <div class="field">
+        <label for="deposit">Security deposit <span class="muted">(optional)</span></label>
+        <div class="input-prefix"><span>₹</span><input id="deposit" name="deposit" inputmode="numeric" placeholder="1,50,000"></div>
+        <span class="error" data-error-for="deposit"></span>
+      </div>
+      <div class="field">
+        <label for="bhk">BHK</label>
+        <select id="bhk" name="bhk" required>
+          <option value="">Select</option>
+          <option value="1">1 BHK / 1 RK</option><option value="2">2 BHK</option><option value="3">3 BHK</option>
+          <option value="4">4 BHK</option><option value="5">5 BHK</option><option value="6">6+ BHK</option>
+        </select>
+        <span class="error" data-error-for="bhk"></span>
+      </div>
+      <div class="field">
+        <label for="area_sqft">Area (sq.ft) <span class="muted">(optional)</span></label>
+        <input id="area_sqft" name="area_sqft" inputmode="numeric" placeholder="750">
+        <span class="error" data-error-for="area_sqft"></span>
+      </div>
+      <div class="field">
+        <label for="bathrooms">Bathrooms <span class="muted">(optional)</span></label>
+        <input id="bathrooms" name="bathrooms" inputmode="numeric" placeholder="2">
+        <span class="error" data-error-for="bathrooms"></span>
+      </div>
+      <div class="field">
+        <label for="furnishing">Furnishing</label>
+        <select id="furnishing" name="furnishing">
+          <option value="unknown">Not specified</option><option value="furnished">Furnished</option>
+          <option value="semi-furnished">Semi-furnished</option><option value="unfurnished">Unfurnished</option>
+        </select>
+        <span class="error" data-error-for="furnishing"></span>
+      </div>
+      <div class="field">
+        <label for="property_type">Property type</label>
+        <select id="property_type" name="property_type">
+          <option value="apartment">Apartment</option><option value="studio">Studio / 1 RK</option>
+          <option value="independent_house">Independent house / villa</option>
+        </select>
+        <span class="error" data-error-for="property_type"></span>
+      </div>
+      <div class="field">
+        <label for="contact">Contact phone / e-mail <span class="muted">(optional)</span></label>
+        <input id="contact" name="contact" autocomplete="off" maxlength="100" placeholder="Hashed, never shown">
+        <span class="hint">Stored only as a one-way hash to detect repeated contacts.</span>
+        <span class="error" data-error-for="contact"></span>
+      </div>
+      <div class="field span-all">
+        <label for="description">Listing description</label>
+        <textarea id="description" name="description" maxlength="5000" placeholder="Paste the full advert text here…"></textarea>
+        <div class="row-between"><span class="error" data-error-for="description"></span><span class="char-count" id="char-count">0 / 5,000</span></div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit" id="analyze-btn"><span class="btn-label">Analyze Listing</span></button>
+      <button class="btn btn-ghost" type="reset">Clear</button>
+      <span class="small muted">Analysis usually takes under a second.</span>
+    </div>
+  </form>
+
+  <section id="result-section" class="section-gap" aria-live="polite"></section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+<script src="{{ url_for('static', filename='js/analyze.js') }}"></script>
+{% endblock %}

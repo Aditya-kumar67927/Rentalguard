@@ -1,0 +1,16 @@
+# Pinned for reproducibility: the joblib model artifacts must be loaded with the
+# same scikit-learn version that trained them.
+Flask==3.1.3
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.54
+python-dotenv==1.2.3
+pandas==3.0.6
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+matplotlib==3.11.2
+requests==2.34.2
+psycopg2-binary==2.9.13
+gunicorn==26.2.0
+pytest==9.1.1

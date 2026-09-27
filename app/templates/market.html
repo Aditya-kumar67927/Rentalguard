@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Market data explorer{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head">
+    <h1>Market data explorer</h1>
+    <p>Browse the reference dataset (99acres Mumbai rental listings, July 2018) and the synthetic demo listings,
+      each scored by the same risk engine. Contact details are hashed and never shown. Rents reflect 2018 prices.</p>
+  </div>
+  {% with scope='market' %}{% include "_listing_browser.html" %}{% endwith %}
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/listings.js') }}"></script>{% endblock %}

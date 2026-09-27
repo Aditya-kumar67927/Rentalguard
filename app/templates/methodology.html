@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Methodology{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head">
+    <h1>About &amp; methodology</h1>
+    <p>How RentalGuard reaches a risk score, what data it uses, and where it can be wrong.</p>
+  </div>
+  <div class="grid grid-2">
+    <article class="card prose">
+      <h2>What the score means</h2>
+      <p>The score (0–100) is the sum of points from transparent rule indicators (capped at 80) plus up to 20
+        points from a machine-learning model.</p>
+      <div class="formula">risk_score = min(80, Σ indicator points) + round(20 × ML probability)</div>
+      <ul>
+        <li><span class="badge lvl-LOW">Low</span> 0–24</li>
+        <li><span class="badge lvl-MODERATE">Moderate</span> 25–49</li>
+        <li><span class="badge lvl-HIGH">High</span> 50–74</li>
+        <li><span class="badge lvl-VERY_HIGH">Very high</span> 75–100</li>
+      </ul>
+      <p>It is a <strong>risk assessment</strong>, not a fraud verdict. Listings can be genuine and still unusual
+        (a landlord offering a real discount), and a risky listing can look ordinary.</p>
+
+      <h2>Price anomaly</h2>
+      <p>Expected rent comes from comparable listings, looked up with a fallback hierarchy:
+        <em>locality + BHK → area + BHK → zone + BHK → all Mumbai + BHK</em>. When the area is known we use the
+        median rent per sq.ft × area. A gradient-boosted regression model provides a second estimate. The two are
+        blended in log-space, trusting the peer group more when it is large.</p>
+      <div class="formula">z = ln(actual / expected) / σ_peer      (σ = 1.4826 × MAD, robust)
+HIGH if z ≤ −2.5 or actual &lt; 45% of expected
+MODERATE if z ≤ −1.5 or actual &lt; 65% of expected</div>
+
+      <h2>Text analysis</h2>
+      <p>Curated patterns detect advance-payment requests, payment before viewing, "no viewing" claims, owners
+        abroad, urgency, unusual payment channels and requests for OTPs. Negations ("no advance required") and
+        routine phrases ("immediately available") are excluded. A TF-IDF character n-gram model compares each
+        sentence to known risky messages to catch paraphrases and misspellings.</p>
+
+      <h2>Duplicates</h2>
+      <p>Descriptions are normalised, hashed for exact matches and indexed with MinHash locality-sensitive hashing.
+        Candidates are ranked by TF-IDF cosine similarity. A similarity ≥ 90% is a <em>possible duplicate</em>;
+        it adds risk only when the copy has a very different rent or is in a different zone.</p>
+
+      <h2>Contacts</h2>
+      <p>Phone numbers and e-mails are hashed with SHA-256 and never displayed. Brokers legitimately post many
+        listings, so repetition only adds points when a contact spans many localities or has been reported.</p>
+    </article>
+
+    <div class="stack">
+      <article class="card prose">
+        <h2>Data</h2>
+        <p><strong>Reference listings:</strong> 13,541 Mumbai rental listings from 99acres.com collected on
+          16 July 2018, published on GitHub (<code>baldsatan/mumbai-rental-data-analysis</code>). After cleaning and
+          removing reposts, 9,139 listings remain. The repository has no explicit licence; the data is used here for
+          non-commercial, educational research only and is not redistributed.</p>
+        <p><strong>Rents are 2018 prices.</strong> Current rents are generally higher, so today's listings may look
+          slightly expensive relative to the reference data. Low-price flags are affected less, because they rely
+          on large deviations.</p>
+        <p><strong>Risk labels are synthetic.</strong> No openly licensed, labelled Indian rental-scam dataset was
+          available, so the ML model is trained on a documented simulation. Its metrics show how well it recovers
+          that simulation, not real-world fraud-detection accuracy.</p>
+      </article>
+      <article class="card">
+        <div class="card-head"><h3>Current models</h3><span class="small muted" id="model-generated"></span></div>
+        <div id="model-info"><div class="loading-panel"><div class="spinner dark"></div> Loading model metrics…</div></div>
+      </article>
+      <div class="callout"><strong>Before you pay anything:</strong> visit the property, meet the owner or authorised
+        agent, check ownership documents (index II / sale deed, society NOC), insist on a registered leave &amp;
+        licence agreement, and never share OTPs.</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/methodology.js') }}"></script>{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Risk assessment #{{ analysis_id }}{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head row-between">
+    <div>
+      <h1>Risk assessment</h1>
+      <p id="result-subtitle">Loading…</p>
+    </div>
+    <div class="row">
+      <a class="btn btn-secondary" href="{{ url_for('pages.analyze') }}">New analysis</a>
+    </div>
+  </div>
+  <section id="result-section" data-analysis-id="{{ analysis_id }}" aria-live="polite">
+    <div class="card loading-panel"><div class="spinner dark"></div> Loading assessment…</div>
+  </section>
+</div>
+
+<dialog id="report-dialog">
+  <form class="card stack" id="report-form" method="dialog" novalidate>
+    <h3>Report this listing</h3>
+    <p class="small muted">Reports are shared anonymously as a signal for other users. Please only report genuine concerns.</p>
+    <div class="form-alert hidden" role="alert" data-form-alert></div>
+    <div class="field">
+      <label for="reason">Reason</label>
+      <select id="reason" name="reason" required>
+        {% for r in report_reasons %}<option value="{{ r }}">{{ r.replace('_', ' ')|capitalize }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="details">Details <span class="muted">(optional)</span></label>
+      <textarea id="details" name="details" maxlength="1000"></textarea>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" value="submit">Submit report</button>
+      <button type="button" class="btn btn-ghost" id="report-cancel">Cancel</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+<script src="{{ url_for('static', filename='js/result_page.js') }}"></script>
+{% endblock %}

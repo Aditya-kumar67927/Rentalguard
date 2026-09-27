@@ -1,0 +1,60 @@
+{# Shared search / filter / sort table used by History and Market pages #}
+<form class="filters card" id="filters" data-scope="{{ scope }}">
+  <div class="field">
+    <label for="f-q">Locality</label>
+    <input id="f-q" name="q" placeholder="Search locality" autocomplete="off">
+  </div>
+  <div class="field">
+    <label for="f-bhk">BHK</label>
+    <select id="f-bhk" name="bhk">
+      <option value="">Any</option><option value="1">1</option><option value="2">2</option>
+      <option value="3">3</option><option value="4">4</option><option value="5">5+</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="f-min">Min rent (₹)</label>
+    <input id="f-min" name="min_rent" inputmode="numeric" placeholder="0">
+  </div>
+  <div class="field">
+    <label for="f-max">Max rent (₹)</label>
+    <input id="f-max" name="max_rent" inputmode="numeric" placeholder="Any">
+  </div>
+  <div class="field">
+    <label for="f-level">Risk level</label>
+    <select id="f-level" name="risk_level">
+      <option value="">Any</option><option value="LOW">Low</option><option value="MODERATE">Moderate</option>
+      <option value="HIGH">High</option><option value="VERY_HIGH">Very high</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="f-sort">Sort by</label>
+    <select id="f-sort" name="sort">
+      {% if scope == 'mine' %}<option value="newest">Newest first</option>{% endif %}
+      <option value="risk_desc">Risk score (high → low)</option>
+      <option value="risk_asc">Risk score (low → high)</option>
+      <option value="rent_asc">Rent (low → high)</option>
+      <option value="rent_desc">Rent (high → low)</option>
+      {% if scope != 'mine' %}<option value="newest">Recently added</option>{% endif %}
+    </select>
+  </div>
+</form>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Locality</th><th>BHK</th><th class="num">Rent</th><th class="num">Area</th>
+        <th>Furnishing</th><th class="num">Score</th><th>Risk level</th><th></th>
+      </tr>
+    </thead>
+    <tbody id="listing-rows">
+      <tr><td colspan="8"><div class="loading-panel"><div class="spinner dark"></div> Loading…</div></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="pager">
+  <span class="small muted" id="pager-info"></span>
+  <div class="row">
+    <button class="btn btn-secondary btn-sm" id="prev-page" type="button">← Previous</button>
+    <button class="btn btn-secondary btn-sm" id="next-page" type="button">Next →</button>
+  </div>
+</div>

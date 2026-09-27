@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Your listing history{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head row-between">
+    <div>
+      <h1>Your listing history</h1>
+      <p>Every listing you have analyzed, with its latest risk assessment. Only you can see these.</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('pages.analyze') }}">Analyze a listing</a>
+  </div>
+  {% with scope='mine' %}{% include "_listing_browser.html" %}{% endwith %}
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/listings.js') }}"></script>{% endblock %}

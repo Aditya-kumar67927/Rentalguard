@@ -1,0 +1,287 @@
+{
+  "generated_at": "2026-09-24T18:16:21+00:00",
+  "python": "3.14.3",
+  "sklearn": "1.9.1",
+  "seed": 42,
+  "price_model": {
+    "rows": 9114,
+    "train_rows": 7291,
+    "test_rows": 1823,
+    "features": [
+      "locality_group",
+      "zone",
+      "furnishing",
+      "property_type",
+      "bhk",
+      "log_area",
+      "bathrooms"
+    ],
+    "models": {
+      "peer_median_baseline": {
+        "test": {
+          "mae_rupees": 15578.0,
+          "median_ape": 0.1378,
+          "within_20pct": 0.6445,
+          "r2_log": 0.8153
+        }
+      },
+      "ridge": {
+        "cv_mae_log_mean": 0.1737,
+        "cv_mae_log_std": 0.0045,
+        "cv_r2_log_mean": 0.9162,
+        "test": {
+          "mae_rupees": 12164.0,
+          "median_ape": 0.1267,
+          "within_20pct": 0.695,
+          "r2_log": 0.921
+        },
+        "train_seconds": 0.4
+      },
+      "random_forest": {
+        "cv_mae_log_mean": 0.1661,
+        "cv_mae_log_std": 0.0061,
+        "cv_r2_log_mean": 0.9185,
+        "test": {
+          "mae_rupees": 11412.0,
+          "median_ape": 0.109,
+          "within_20pct": 0.7131,
+          "r2_log": 0.917
+        },
+        "train_seconds": 10.0
+      },
+      "hist_gradient_boosting": {
+        "cv_mae_log_mean": 0.1488,
+        "cv_mae_log_std": 0.0056,
+        "cv_r2_log_mean": 0.9323,
+        "test": {
+          "mae_rupees": 10459.0,
+          "median_ape": 0.1039,
+          "within_20pct": 0.7608,
+          "r2_log": 0.9368
+        },
+        "train_seconds": 8.3
+      }
+    },
+    "selected": "hist_gradient_boosting",
+    "selection_criterion": "lowest 5-fold CV MAE of log(rent) on the training split",
+    "permutation_importance": {
+      "locality_group": 0.365,
+      "log_area": 0.1744,
+      "zone": 0.1399,
+      "bhk": 0.0898,
+      "furnishing": 0.024,
+      "property_type": 0.0015,
+      "bathrooms": -0.0002
+    }
+  },
+  "risk_model": {
+    "rows": 6000,
+    "positive_rate": 0.2605,
+    "train_rows": 4800,
+    "test_rows": 1200,
+    "features": [
+      "price_log_ratio",
+      "price_z",
+      "price_available",
+      "deposit_ratio_rel",
+      "deposit_provided",
+      "advance_payment",
+      "payment_before_viewing",
+      "no_viewing",
+      "owner_away",
+      "urgency_score",
+      "unusual_payment",
+      "off_platform",
+      "semantic_risk",
+      "dup_similarity",
+      "dup_conflict",
+      "contact_log_listings",
+      "contact_reported",
+      "desc_log_len",
+      "missing_area",
+      "n_text_categories"
+    ],
+    "label_source": "synthetic simulation (app/ml/synthetic.py)",
+    "models": {
+      "rule_score_baseline": {
+        "test": {
+          "precision": 0.7878,
+          "recall": 0.6166,
+          "f1": 0.6918,
+          "roc_auc": 0.8831,
+          "pr_auc": 0.7753,
+          "confusion_matrix": {
+            "tn": 835,
+            "fp": 52,
+            "fn": 120,
+            "tp": 193
+          },
+          "threshold": 0.3125
+        }
+      },
+      "logistic_regression": {
+        "cv": {
+          "precision": {
+            "mean": 0.7766,
+            "std": 0.028
+          },
+          "recall": {
+            "mean": 0.8256,
+            "std": 0.019
+          },
+          "f1": {
+            "mean": 0.7999,
+            "std": 0.0134
+          },
+          "roc_auc": {
+            "mean": 0.9193,
+            "std": 0.0089
+          },
+          "average_precision": {
+            "mean": 0.8504,
+            "std": 0.0198
+          }
+        },
+        "test": {
+          "precision": 0.774,
+          "recall": 0.7987,
+          "f1": 0.7862,
+          "roc_auc": 0.9066,
+          "pr_auc": 0.8365,
+          "confusion_matrix": {
+            "tn": 814,
+            "fp": 73,
+            "fn": 63,
+            "tp": 250
+          },
+          "threshold": 0.5
+        },
+        "train_seconds": 0.2
+      },
+      "random_forest": {
+        "cv": {
+          "precision": {
+            "mean": 0.7871,
+            "std": 0.021
+          },
+          "recall": {
+            "mean": 0.8368,
+            "std": 0.0241
+          },
+          "f1": {
+            "mean": 0.8108,
+            "std": 0.0157
+          },
+          "roc_auc": {
+            "mean": 0.9226,
+            "std": 0.0098
+          },
+          "average_precision": {
+            "mean": 0.8568,
+            "std": 0.028
+          }
+        },
+        "test": {
+          "precision": 0.7725,
+          "recall": 0.8243,
+          "f1": 0.7975,
+          "roc_auc": 0.915,
+          "pr_auc": 0.8446,
+          "confusion_matrix": {
+            "tn": 811,
+            "fp": 76,
+            "fn": 55,
+            "tp": 258
+          },
+          "threshold": 0.5
+        },
+        "train_seconds": 8.1
+      },
+      "gradient_boosting": {
+        "cv": {
+          "precision": {
+            "mean": 0.863,
+            "std": 0.0165
+          },
+          "recall": {
+            "mean": 0.7744,
+            "std": 0.0197
+          },
+          "f1": {
+            "mean": 0.8161,
+            "std": 0.0138
+          },
+          "roc_auc": {
+            "mean": 0.9248,
+            "std": 0.0121
+          },
+          "average_precision": {
+            "mean": 0.8628,
+            "std": 0.0276
+          }
+        },
+        "test": {
+          "precision": 0.8592,
+          "recall": 0.7604,
+          "f1": 0.8068,
+          "roc_auc": 0.9148,
+          "pr_auc": 0.8632,
+          "confusion_matrix": {
+            "tn": 848,
+            "fp": 39,
+            "fn": 75,
+            "tp": 238
+          },
+          "threshold": 0.5
+        },
+        "train_seconds": 15.1
+      }
+    },
+    "selected": "gradient_boosting",
+    "selection_criterion": "highest 5-fold CV average precision (PR-AUC) on the training split",
+    "permutation_importance": {
+      "price_z": 0.1496,
+      "deposit_ratio_rel": 0.1009,
+      "n_text_categories": 0.0628,
+      "semantic_risk": 0.0622,
+      "price_log_ratio": 0.0252,
+      "missing_area": 0.0191,
+      "desc_log_len": 0.0168,
+      "dup_similarity": 0.008,
+      "urgency_score": 0.0053,
+      "dup_conflict": 0.0033,
+      "advance_payment": 0.0027,
+      "unusual_payment": 0.0013,
+      "owner_away": 0.0008,
+      "no_viewing": 0.0007,
+      "price_available": 0.0,
+      "contact_reported": 0.0,
+      "off_platform": -0.0002,
+      "deposit_provided": -0.0003,
+      "contact_log_listings": -0.0008,
+      "payment_before_viewing": -0.001
+    },
+    "logistic_coefficients": {
+      "price_log_ratio": -0.0393,
+      "price_z": -0.886,
+      "price_available": 0.0,
+      "deposit_ratio_rel": 0.5715,
+      "deposit_provided": 0.0292,
+      "advance_payment": -0.1043,
+      "payment_before_viewing": 0.0413,
+      "no_viewing": -0.2769,
+      "owner_away": -0.0327,
+      "urgency_score": 0.0887,
+      "unusual_payment": 0.2134,
+      "off_platform": -0.2247,
+      "semantic_risk": 1.0051,
+      "dup_similarity": -0.0209,
+      "dup_conflict": 0.3885,
+      "contact_log_listings": -0.0278,
+      "contact_reported": 0.0,
+      "desc_log_len": -0.2826,
+      "missing_area": 0.4892,
+      "n_text_categories": 1.0864
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}RentalGuard{% endblock %} · RentalGuard</title>
+  <meta name="description" content="RentalGuard analyzes Mumbai rental listings for unusual pricing, risky wording, duplicates and contact patterns.">
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.svg') }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body data-authenticated="{{ 'true' if current_user else 'false' }}">
+  <a class="sr-only" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a class="brand" href="{{ url_for('pages.index') }}">
+        <img class="brand-mark" src="{{ url_for('static', filename='images/logo.svg') }}" alt="" width="30" height="30">
+        RentalGuard
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="nav-links" id="nav-links">
+        {% set ep = request.endpoint %}
+        <a href="{{ url_for('pages.analyze') }}" class="{{ 'active' if ep == 'pages.analyze' }}">Analyze</a>
+        {% if current_user %}<a href="{{ url_for('pages.history') }}" class="{{ 'active' if ep == 'pages.history' }}">History</a>{% endif %}
+        <a href="{{ url_for('pages.market') }}" class="{{ 'active' if ep == 'pages.market' }}">Market data</a>
+        <a href="{{ url_for('pages.dashboard') }}" class="{{ 'active' if ep == 'pages.dashboard' }}">Dashboard</a>
+        <a href="{{ url_for('pages.methodology') }}" class="{{ 'active' if ep == 'pages.methodology' }}">Methodology</a>
+        {% if current_user %}
+          <span class="nav-user">{{ current_user.name }}</span>
+          <button type="button" class="linklike" id="logout-btn">Log out</button>
+        {% else %}
+          <a href="{{ url_for('pages.login') }}" class="{{ 'active' if ep == 'pages.login' }}">Log in</a>
+          <a href="{{ url_for('pages.register') }}" class="btn btn-primary btn-sm">Sign up</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong class="brand">RentalGuard</strong>
+        <p>RentalGuard produces an automated <em>risk assessment</em>, not a fraud verdict. Scores can be wrong in both
+          directions. Always view the property in person and verify the owner's identity and ownership documents
+          before paying anything.</p>
+      </div>
+      <div>
+        <div><a href="{{ url_for('pages.methodology') }}">Methodology &amp; data sources</a></div>
+        <div><a href="{{ url_for('pages.dashboard') }}">Dashboard</a></div>
+        <p class="small">Market data: 99acres Mumbai listings, July 2018 (see methodology).</p>
+      </div>
+    </div>
+  </footer>
+  <div class="toast-host" id="toast-host" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

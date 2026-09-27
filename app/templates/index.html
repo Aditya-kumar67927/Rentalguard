@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Analyze rental listings before you commit{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Mumbai rental risk analyzer</span>
+      <h1>Analyze rental listings <em>before you commit.</em></h1>
+      <p class="lead">RentalGuard checks a listing's rent against thousands of comparable Mumbai listings, scans the
+        description for risky payment and pressure language, looks for cloned listings, and explains every
+        risk indicator it finds.</p>
+      <div class="row">
+        <a class="btn btn-light" href="{{ url_for('pages.analyze') }}">Analyze a listing</a>
+        <a class="btn btn-outline-light" href="{{ url_for('pages.methodology') }}">How it works</a>
+      </div>
+      <div class="trust-row" id="market-stats">
+        <div><strong data-stat="total">—</strong>reference listings</div>
+        <div><strong data-stat="localities">524</strong>normalised localities</div>
+        <div><strong>5</strong>independent analyzers</div>
+      </div>
+    </div>
+    <aside class="hero-card" aria-label="Example risk assessment">
+      <div class="mini-score">
+        <div class="gauge sm">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="track" cx="60" cy="60" r="52" stroke-width="12" fill="none"/>
+            <circle class="value stroke-VERY_HIGH" cx="60" cy="60" r="52" stroke-width="12" fill="none" stroke-dasharray="326.7" stroke-dashoffset="62"/>
+          </svg>
+          <div class="label"><div><strong>81</strong><span>/ 100</span></div></div>
+        </div>
+        <div>
+          <span class="badge lvl-VERY_HIGH">Very high risk</span>
+          <p class="small muted">Illustrative example: 2 BHK, Andheri West, ₹8,000/month</p>
+        </div>
+      </div>
+      <ul>
+        <li><span>Unusually low rent (−81% vs comparables)</span><b class="pill-points">+25</b></li>
+        <li><span>Payment requested before viewing</span><b class="pill-points">+20</b></li>
+        <li><span>Advance / token amount request</span><b class="pill-points">+15</b></li>
+        <li><span>Owner claims to be abroad</span><b class="pill-points">+10</b></li>
+        <li><span>ML risk estimate</span><b class="pill-points">+11</b></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Five independent checks, one explainable score</h2>
+    <p class="muted">Every point in the risk score is traced back to evidence you can inspect.</p>
+    <div class="grid grid-3">
+      <div class="card feature-card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+        <h3>Price anomaly engine</h3>
+        <p>Robust peer statistics (median rent per sq.ft by locality and BHK) blended with a gradient-boosted
+          regression model trained on 9,000+ Mumbai listings.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="18" cy="16" r="3"/><path d="m20.5 18.5 1.5 1.5"/></svg></div>
+        <h3>Text &amp; NLP analysis</h3>
+        <p>Detects advance-payment requests, "no viewing" claims, owner-abroad stories, urgency and unusual
+          payment channels, with TF-IDF similarity to catch paraphrases.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></div>
+        <h3>Duplicate detection</h3>
+        <p>MinHash LSH + TF-IDF cosine similarity finds near-identical listings, and flags copies that appear with
+          a different price or in a different part of the city.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+        <h3>Contact patterns</h3>
+        <p>Contacts are hashed, never displayed. Repetition across many localities and community reports are
+          surfaced as patterns, not accusations.</p>
+      </div>
+      <div class="card feature-card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="5"/></svg></div>
+        <h3>Deposit analysis</h3>
+        <p>Compares the deposit-to-rent ratio with typical Mumbai deposits (a median of about 4.4 months' rent in the reference data).</p>
+      </div>
+      <div class="card feature-card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2Z"/></svg></div>
+        <h3>Machine-learning estimate</h3>
+        <p>A gradient-boosting classifier combines weak signals. It is trained on documented synthetic labels and
+          only adds up to 20 of the 100 points.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step"><h3>Enter the listing</h3><p>Locality, rent, deposit, BHK, area and the description text.</p></div>
+      <div class="step"><h3>Five analyzers run</h3><p>Price, deposit, text, duplicate and contact checks run in parallel on your listing.</p></div>
+      <div class="step"><h3>Read the evidence</h3><p>Each indicator shows its points, the matched phrase or number, and why it matters.</p></div>
+      <div class="step"><h3>Verify before paying</h3><p>Use the findings as a checklist when you visit the property and meet the owner.</p></div>
+    </div>
+    <div class="callout section-note">
+      <strong>A risk assessment, not a verdict.</strong> RentalGuard highlights unusual characteristics that deserve
+      further verification. A high score does not prove a listing is fraudulent, and a low score does not guarantee
+      that it is safe.
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/home.js') }}"></script>{% endblock %}

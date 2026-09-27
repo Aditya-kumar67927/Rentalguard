@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+
+# Secrets / local state
+.env
+instance/
+*.db
+*.sqlite3
+
+# Data: raw & processed files are downloaded/derived and not redistributed
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/synthetic/*.csv
+
+# Trained artifacts are reproducible via the pipeline (see README)
+ml_models/*
+!ml_models/.gitkeep
+!ml_models/metrics.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

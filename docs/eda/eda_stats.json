@@ -1,0 +1,144 @@
+{
+  "rows": 9139,
+  "rent": {
+    "count": 9139.0,
+    "mean": 64739.02440091914,
+    "std": 73966.64106671188,
+    "min": 2900.0,
+    "5%": 11190.000000000004,
+    "25%": 25000.0,
+    "50%": 45000.0,
+    "75%": 75000.0,
+    "95%": 200000.0,
+    "max": 1490000.0
+  },
+  "rent_skew": 4.830870011187158,
+  "median_rent_by_bhk": {
+    "1.0": {
+      "median": 22000.0,
+      "count": 1745.0
+    },
+    "2.0": {
+      "median": 40000.0,
+      "count": 4174.0
+    },
+    "3.0": {
+      "median": 72000.0,
+      "count": 2680.0
+    },
+    "4.0": {
+      "median": 167500.0,
+      "count": 484.0
+    },
+    "5.0": {
+      "median": 300000.0,
+      "count": 48.0
+    },
+    "6.0": {
+      "median": 160000.0,
+      "count": 5.0
+    },
+    "7.0": {
+      "median": 115000.0,
+      "count": 2.0
+    },
+    "9.0": {
+      "median": 220000.0,
+      "count": 1.0
+    }
+  },
+  "median_rent_top_localities": {
+    "Lower Parel": 230000.0,
+    "Prabhadevi": 200000.0,
+    "Parel": 110000.0,
+    "Khar West": 100000.0,
+    "Bandra West": 88000.0,
+    "Goregaon East": 80000.0,
+    "Powai": 75000.0,
+    "Andheri West": 70000.0,
+    "Wadala": 70000.0,
+    "Wadala East": 65500.0,
+    "Ghatkopar West": 62000.0,
+    "Chembur East": 57000.0,
+    "Chembur": 57000.0,
+    "Mulund West": 48000.0,
+    "Andheri East": 47000.0,
+    "Bhandup West": 45000.0,
+    "Malad West": 36000.0,
+    "Hiranandani Estate": 29500.0,
+    "Kandivali East": 29500.0,
+    "Kharghar": 21000.0
+  },
+  "median_rent_per_sqft_by_zone": {
+    "South Mumbai": 95.37,
+    "South West Mumbai": 89.66,
+    "Harbour": 47.67,
+    "Central Suburbs": 47.43,
+    "Andheri-Dahisar": 39.29,
+    "Thane": 25.54,
+    "Navi Mumbai": 19.09,
+    "Unknown": 18.07,
+    "Beyond Thane": 13.24
+  },
+  "deposit_ratio": {
+    "count": 2517.0,
+    "mean": 4.493577155706804,
+    "std": 1.312322115768442,
+    "min": 0.5,
+    "5%": 2.7955555555555556,
+    "25%": 3.7383177570093458,
+    "50%": 4.444444444444445,
+    "75%": 5.172413793103448,
+    "95%": 6.0,
+    "99%": 7.142857142857143,
+    "max": 28.571428571428573
+  },
+  "furnishing": {
+    "unknown": {
+      "median": 65.0,
+      "count": 189
+    },
+    "furnished": {
+      "median": 53.0,
+      "count": 2121
+    },
+    "semi-furnished": {
+      "median": 42.25,
+      "count": 4085
+    },
+    "unfurnished": {
+      "median": 28.79,
+      "count": 2741
+    }
+  },
+  "locality_groups": 447,
+  "locality_groups_ge_20": 91,
+  "locality_groups_lt_5": 256,
+  "share_listings_top20_groups": 0.5045409782251887,
+  "property_type": {
+    "apartment": 9023,
+    "studio": 61,
+    "independent_house": 55
+  },
+  "area_sqft": {
+    "count": 9136.0,
+    "mean": 1273.6990713208186,
+    "std": 702.6763455452603,
+    "min": 150.0,
+    "5%": 565.0,
+    "50%": 1125.0,
+    "95%": 2500.0,
+    "max": 13454.875
+  },
+  "corr_log_rent_log_area": 0.6578673967048518,
+  "contacts": {
+    "unique": 1237,
+    "median_listings": 4.0,
+    "max_listings": 229,
+    "share_listings_by_top_10pct_contacts": 0.45114024457419855
+  },
+  "reposts": {
+    "listings_with_reposts": 467,
+    "max_reposts": 69
+  }
+}

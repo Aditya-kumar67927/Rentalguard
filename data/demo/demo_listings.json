@@ -1,0 +1,54 @@
+{
+  "_note": "SYNTHETIC DEMO DATA. Written by hand to demonstrate RentalGuard's analyzers. These are not real listings, people or phone numbers.",
+  "listings": [
+    {
+      "key": "normal",
+      "label": "Normal listing",
+      "locality": "Andheri West", "rent": 35000, "deposit": 150000, "bhk": 2, "area_sqft": 650, "bathrooms": 2,
+      "furnishing": "semi-furnished", "property_type": "apartment",
+      "description": "Well maintained 2 BHK semi-furnished flat in a gated society, 8 minutes walk from Andheri station. Modular kitchen, 2 bathrooms, covered parking, lift and 24x7 security. Family preferred. Deposit 1.5 lakh. Please call to schedule a visit on weekends."
+    },
+    {
+      "key": "suspicious_price",
+      "label": "Suspicious pricing",
+      "locality": "Andheri West", "rent": 8000, "deposit": 20000, "bhk": 2, "area_sqft": 650, "bathrooms": 2,
+      "furnishing": "semi-furnished", "property_type": "apartment",
+      "description": "Spacious 2 BHK semi-furnished flat in a gated society near Andheri station. Modular kitchen, covered parking and 24x7 security. Family preferred, move in this month."
+    },
+    {
+      "key": "payment_request",
+      "label": "Suspicious payment request",
+      "locality": "Powai", "rent": 30000, "deposit": 100000, "bhk": 2, "area_sqft": null, "bathrooms": null,
+      "furnishing": "furnished", "property_type": "apartment",
+      "description": "Fully furnished 2 BHK with lake view in Hiranandani. I am currently in Dubai so a physical viewing is not possible. Send token amount before viewing to block the flat and I will courier the keys to you."
+    },
+    {
+      "key": "urgency",
+      "label": "Suspicious urgency",
+      "locality": "Bandra West", "rent": 85000, "deposit": 300000, "bhk": 2, "area_sqft": 900, "bathrooms": 2,
+      "furnishing": "furnished", "property_type": "apartment",
+      "description": "Premium 2 BHK near Carter Road. Many people are interested in this flat. Pay immediately or the property will be given to someone else. Offer valid today only."
+    },
+    {
+      "key": "duplicate_original",
+      "label": "Duplicate pair - original",
+      "locality": "Bandra West", "rent": 95000, "deposit": 400000, "bhk": 2, "area_sqft": 900, "bathrooms": 2,
+      "furnishing": "furnished", "property_type": "apartment",
+      "description": "Sea facing fully furnished 2 BHK apartment on a high floor with a large balcony, Italian marble flooring, modular kitchen with chimney and hob, two air conditioners, one covered car park, gym and swimming pool in the society, walking distance to the promenade and cafes."
+    },
+    {
+      "key": "duplicate_copy",
+      "label": "Duplicate pair - copy with different price and location",
+      "locality": "Kharghar", "rent": 22000, "deposit": 60000, "bhk": 2, "area_sqft": 900, "bathrooms": 2,
+      "furnishing": "furnished", "property_type": "apartment",
+      "description": "Sea facing fully furnished 2 BHK apartment on a high floor with a large balcony, Italian marble flooring, modular kitchen with chimney and hob, two air conditioners, one covered car park, gym and swimming pool in the society, walking distance to the promenade."
+    },
+    {
+      "key": "high_deposit",
+      "label": "Unusually high deposit",
+      "locality": "Goregaon East", "rent": 30000, "deposit": 450000, "bhk": 1, "area_sqft": 600, "bathrooms": 1,
+      "furnishing": "semi-furnished", "property_type": "apartment",
+      "description": "1 BHK semi furnished flat in a complex with garden and gym, close to the Western Express Highway. Deposit is 15 months rent, non negotiable. Working professionals preferred."
+    }
+  ]
+}

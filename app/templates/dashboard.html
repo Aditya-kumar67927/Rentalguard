@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-head row-between">
+    <div>
+      <h1>Dashboard</h1>
+      <p id="dash-subtitle">Risk and rent statistics.</p>
+    </div>
+    <div class="segmented" role="tablist" aria-label="Data scope">
+      <button type="button" data-scope="market" role="tab">Market data</button>
+      <button type="button" data-scope="mine" role="tab" {% if not current_user %}disabled title="Log in to see your own statistics"{% endif %}>My listings</button>
+    </div>
+  </div>
+
+  <div class="grid grid-4" id="kpis">
+    <div class="card kpi"><div class="label">Listings analyzed</div><div class="value" data-kpi="analyzed">—</div><div class="sub" data-kpi="total"></div></div>
+    <div class="card kpi"><div class="label">Average rent</div><div class="value" data-kpi="avg_rent">—</div><div class="sub" data-kpi="median_rent"></div></div>
+    <div class="card kpi"><div class="label">Average risk score</div><div class="value" data-kpi="avg_score">—</div><div class="sub">0–100 scale</div></div>
+    <div class="card kpi"><div class="label">High / very high risk</div><div class="value" data-kpi="high">—</div><div class="sub" data-kpi="high_share"></div></div>
+  </div>
+
+  <div class="grid grid-2 section-gap">
+    <div class="card"><div class="card-head"><h3>Risk distribution</h3></div><div class="chart-box"><canvas id="chart-risk" aria-label="Risk level distribution chart" role="img"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Top risk indicators</h3></div><div class="chart-box"><canvas id="chart-indicators" aria-label="Top risk indicators chart" role="img"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>Average rent by locality</h3><span class="small muted">10 most-listed</span></div><div class="chart-box tall"><canvas id="chart-locality" aria-label="Average rent by locality chart" role="img"></canvas></div></div>
+    <div class="card"><div class="card-head"><h3>BHK distribution</h3></div><div class="chart-box tall"><canvas id="chart-bhk" aria-label="BHK distribution chart" role="img"></canvas></div></div>
+  </div>
+
+  <div class="card section-gap">
+    <div class="card-head">
+      <h3>Verification priority queue</h3>
+      <span class="small muted">Highest risk score + user reports (heap-based top-k)</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Locality</th><th>BHK</th><th class="num">Rent</th><th class="num">Score</th><th>Level</th><th class="num">Reports</th><th></th></tr></thead>
+        <tbody id="top-risk"><tr><td colspan="7" class="muted">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
